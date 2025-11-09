@@ -14,7 +14,7 @@ const { guide } = Astro.props;
 const { Content } = await guide.render();
 
 // Create schema for SEO
-const schema = {
+const articleSchema = {
   "@context": "https://schema.org",
   "@type": "TechArticle",
   "headline": guide.data.title,
@@ -41,6 +41,81 @@ const schema = {
   "proficiencyLevel": guide.data.difficulty,
   "timeRequired": `PT${guide.data.timeToImplement}M`
 };
+
+// FAQ Schema for enriched SEO
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the difference between real-time and batch enrichment?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Real-time enrichment updates contact records instantly when they enter your CRM, ideal for speed-to-lead scenarios like routing hot leads. Batch enrichment processes records in scheduled groups, making it more economical for refreshing existing databases. Most teams use a combination of both approaches."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does data enrichment affect data privacy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Data enrichment must comply with regulations like GDPR and CCPA. Reputable vendors ensure ethical data sourcing and proper consent handling. When vetting vendors, ask about their compliance practices and data sourcing methods to protect your business and customers."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the difference between firmographic and demographic data?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Firmographics describe the company as a whole—industry, revenue, employee count, location. Demographics focus on individual contacts within that company—job title, seniority, department, and role. You need both: firmographics identify if a company fits your ICP, demographics identify who to contact."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does B2B data enrichment cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pricing ranges from $0.10-$2.00 per contact for basic enrichment to $20,000-$100,000+ annually for enterprise solutions. Smaller teams typically start around $1,000-$3,000/month with providers like Clearbit or ZoomInfo. Calculate cost-per-enriched-lead against conversion lift to ensure positive ROI."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which data enrichment vendors are best for SaaS companies?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Top vendors for SaaS include Clearbit (tech stack data), ZoomInfo (comprehensive B2B database), Apollo.io (affordable with prospecting), and Clay (flexible data aggregation). Choice depends on your ICP, budget, and integration requirements with existing CRM and marketing tools."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I measure data enrichment ROI?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Track lead-to-opportunity conversion rate (should increase 20-30%), time to qualify leads (should decrease 30-50%), sales pipeline velocity, and marketing engagement rates. Calculate total enrichment costs against incremental revenue from improved conversions. Most teams see 3-5x ROI within the first year."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I enrich data already in my CRM, or only new leads?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can enrich both existing and new data. Retroactive enrichment refreshes your entire CRM database via bulk batch processing. Prospective enrichment handles new leads in real-time or scheduled batches. Start with a one-time database cleanup, then maintain with ongoing enrichment."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How often should I refresh my enriched data?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Refresh high-value accounts quarterly and your full database annually for most B2B companies. Fast-moving industries like tech startups should update every 90 days minimum. Prioritize records in active sales pipelines or recently engaged with marketing campaigns."
+      }
+    }
+  ]
+};
+
+// Combine schemas
+const schema = [articleSchema, faqSchema];
 ---
 
 <BaseLayout

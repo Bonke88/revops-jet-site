@@ -25,9 +25,13 @@ const { title, description = "RevOps JET - Technical revenue operations engineer
     <meta property="og:type" content="website" />
 
     <!-- Structured Data -->
-    {schema && (
+    {schema && Array.isArray(schema) ? (
+      schema.map((s) => (
+        <script type="application/ld+json" set:html={JSON.stringify(s)} />
+      ))
+    ) : schema ? (
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />
-    )}
+    ) : null}
 
     <style is:global>
       * {
