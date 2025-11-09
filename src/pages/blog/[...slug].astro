@@ -117,6 +117,51 @@ const { Content } = await guide.render();
       color: #f5f5f7;
     }
 
+    /* Image sizing */
+    .article-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 0.5rem;
+      margin: 2rem 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Table styling */
+    .article-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      background: white;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .article-content th {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .article-content td {
+      padding: 1rem;
+      border-bottom: 1px solid #e5e7eb;
+      color: #4b5563;
+    }
+
+    .article-content tr:last-child td {
+      border-bottom: none;
+    }
+
+    .article-content tr:hover {
+      background: #f9fafb;
+    }
+
     .back-link {
       display: inline-block;
       margin-bottom: 2rem;
@@ -138,9 +183,6 @@ const { Content } = await guide.render();
         <span class="badge">{guide.data.useCase}</span>
         <span class="badge">{guide.data.difficulty}</span>
         <span class="badge">{guide.data.timeToImplement} min read</span>
-        {guide.data.aiGenerated && (
-          <span class="badge ai">AI Generated</span>
-        )}
       </div>
     </header>
 
