@@ -118,7 +118,7 @@ const { Content } = await guide.render();
     }
 
     /* Image sizing */
-    .article-content img {
+    .article-content :global(img) {
       max-width: 100%;
       height: auto;
       border-radius: 0.5rem;
@@ -127,7 +127,7 @@ const { Content } = await guide.render();
     }
 
     /* Table styling */
-    .article-content table {
+    .article-content :global(table) {
       width: 100%;
       border-collapse: collapse;
       margin: 2rem 0;
@@ -137,7 +137,7 @@ const { Content } = await guide.render();
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
 
-    .article-content th {
+    .article-content :global(th) {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
       padding: 1rem;
@@ -148,17 +148,17 @@ const { Content } = await guide.render();
       letter-spacing: 0.5px;
     }
 
-    .article-content td {
+    .article-content :global(td) {
       padding: 1rem;
       border-bottom: 1px solid #e5e7eb;
       color: #4b5563;
     }
 
-    .article-content tr:last-child td {
+    .article-content :global(tr:last-child td) {
       border-bottom: none;
     }
 
-    .article-content tr:hover {
+    .article-content :global(tr:hover) {
       background: #f9fafb;
     }
 
