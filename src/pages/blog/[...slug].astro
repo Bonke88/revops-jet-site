@@ -146,6 +146,19 @@ const schema = [articleSchema, faqSchema];
       justify-content: center;
       flex-wrap: wrap;
       font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+
+    .article-author {
+      text-align: center;
+      font-size: 0.875rem;
+      color: #6b7280;
+      margin-top: 0.5rem;
+    }
+
+    .article-author .separator {
+      margin: 0 0.5rem;
+      color: #d1d5db;
     }
 
     .badge {
@@ -288,6 +301,17 @@ const schema = [articleSchema, faqSchema];
         <span class="badge">{guide.data.useCase}</span>
         <span class="badge">{guide.data.difficulty}</span>
         <span class="badge">{guide.data.timeToImplement} min read</span>
+      </div>
+      <div class="article-author">
+        <span>By RevOps JET Team</span>
+        <span class="separator">•</span>
+        <span>Published {guide.data.publishDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+        {guide.data.lastUpdated && guide.data.lastUpdated.getTime() !== guide.data.publishDate.getTime() && (
+          <>
+            <span class="separator">•</span>
+            <span>Updated {guide.data.lastUpdated.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+          </>
+        )}
       </div>
     </header>
 

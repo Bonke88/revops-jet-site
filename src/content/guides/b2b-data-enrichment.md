@@ -1,5 +1,5 @@
 ---
-title: "B2B Data Enrichment A Guide for Revenue Teams"
+title: "B2B Data Enrichment | A Guide for Revenue Teams"
 description: "Unlock revenue growth with our complete guide to B2B data enrichment. Learn how to build a data engine, implement best practices, and prove its ROI."
 tool: "zapier"
 useCase: "sales-automation"
