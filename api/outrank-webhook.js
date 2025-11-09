@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 
   // Verify access token
   const authHeader = req.headers.authorization;
-  const expectedToken = process.env.OUTRANK_WEBHOOK_TOKEN;
+  const expectedToken = process.env.OUTRANKWEBHOOKTOKEN;
 
   if (!authHeader || authHeader !== `Bearer ${expectedToken}`) {
     return res.status(401).json({ error: 'Unauthorized' });
