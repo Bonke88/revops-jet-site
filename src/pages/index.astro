@@ -1,16 +1,539 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="RevOps JET - Technical Revenue Operations Engineering, On Demand"
+  description="Skip the $160K RevOps hire. Get battle-tested engineers building your data pipelines, automation workflows, and analytics infrastructure—for a fixed monthly fee."
+>
+  <style>
+    /* Apple-inspired minimalist design */
+    * {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Hero Section - Apple style */
+    .hero {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: #000000;
+      color: #f5f5f7;
+      padding: 4rem 1.5rem;
+    }
+
+    .hero-content {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(90deg, #f5f5f7 0%, #86868b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero .subhead {
+      font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+      font-weight: 400;
+      line-height: 1.4;
+      color: #86868b;
+      margin-bottom: 2rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .cta-primary {
+      padding: 0.875rem 1.75rem;
+      background: #0071e3;
+      color: white;
+      border-radius: 980px;
+      font-size: 1.0625rem;
+      font-weight: 400;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+    }
+
+    .cta-primary:hover {
+      background: #0077ed;
+      transform: scale(1.02);
+      text-decoration: none;
+    }
+
+    .cta-secondary {
+      padding: 0.875rem 1.75rem;
+      background: transparent;
+      color: #0071e3;
+      border: 1px solid #0071e3;
+      border-radius: 980px;
+      font-size: 1.0625rem;
+      font-weight: 400;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .cta-secondary:hover {
+      background: rgba(0, 113, 227, 0.1);
+      text-decoration: none;
+    }
+
+    /* Problem Section */
+    .problem-section {
+      padding: 6rem 1.5rem;
+      background: #f5f5f7;
+    }
+
+    .problem-section h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 600;
+      text-align: center;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      margin-bottom: 3rem;
+      color: #1d1d1f;
+    }
+
+    .problem-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+
+    .problem-card {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 18px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    .problem-card h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #1d1d1f;
+    }
+
+    .problem-card p {
+      font-size: 1.0625rem;
+      line-height: 1.6;
+      color: #6e6e73;
+    }
+
+    /* Solution Section */
+    .solution-section {
+      padding: 6rem 1.5rem;
+      background: #000000;
+      color: #f5f5f7;
+    }
+
+    .solution-section h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 600;
+      text-align: center;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      margin-bottom: 1rem;
+    }
+
+    .solution-section .tagline {
+      text-align: center;
+      font-size: 1.5rem;
+      color: #86868b;
+      margin-bottom: 4rem;
+    }
+
+    .capabilities-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .capability {
+      text-align: left;
+    }
+
+    .capability-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .capability h3 {
+      font-size: 1.375rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .capability p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #86868b;
+    }
+
+    /* Differentiation Section */
+    .diff-section {
+      padding: 6rem 1.5rem;
+      background: white;
+    }
+
+    .diff-section h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 600;
+      text-align: center;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      margin-bottom: 1rem;
+      color: #1d1d1f;
+    }
+
+    .diff-section .subhead {
+      text-align: center;
+      font-size: 1.25rem;
+      color: #6e6e73;
+      margin-bottom: 4rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .comparison-table {
+      max-width: 980px;
+      margin: 0 auto;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9375rem;
+    }
+
+    th {
+      text-align: left;
+      padding: 1rem;
+      border-bottom: 1px solid #d2d2d7;
+      font-weight: 600;
+      color: #1d1d1f;
+    }
+
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid #f5f5f7;
+      color: #6e6e73;
+    }
+
+    .check {
+      color: #0071e3;
+      font-weight: 600;
+    }
+
+    .cross {
+      color: #86868b;
+    }
+
+    /* Pricing Section */
+    .pricing-section {
+      padding: 6rem 1.5rem;
+      background: #f5f5f7;
+    }
+
+    .pricing-section h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 600;
+      text-align: center;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      color: #1d1d1f;
+    }
+
+    .pricing-section .subhead {
+      text-align: center;
+      font-size: 1.25rem;
+      color: #6e6e73;
+      margin-bottom: 3rem;
+    }
+
+    .pricing-card {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 3rem;
+      border-radius: 18px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+
+    .price {
+      font-size: 4rem;
+      font-weight: 600;
+      color: #1d1d1f;
+      line-height: 1;
+    }
+
+    .price-period {
+      font-size: 1.25rem;
+      color: #86868b;
+      margin-bottom: 2rem;
+    }
+
+    .features-list {
+      text-align: left;
+      list-style: none;
+      padding: 0;
+      margin: 2rem 0;
+    }
+
+    .features-list li {
+      padding: 0.75rem 0;
+      font-size: 1.0625rem;
+      color: #1d1d1f;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .features-list li::before {
+      content: "✓";
+      color: #0071e3;
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+
+    /* Final CTA */
+    .final-cta {
+      padding: 6rem 1.5rem;
+      background: #000000;
+      color: #f5f5f7;
+      text-align: center;
+    }
+
+    .final-cta h2 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 600;
+      line-height: 1.1;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .comparison-table {
+        font-size: 0.875rem;
+      }
+
+      th, td {
+        padding: 0.75rem 0.5rem;
+      }
+    }
+  </style>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Technical RevOps.<br>Built by engineers.</h1>
+      <p class="subhead">
+        We write code, design schemas, and build data pipelines—not just point-and-click automation. Fixed monthly fee. Cancel anytime.
+      </p>
+      <div class="cta-group">
+        <a href="/blog" class="cta-primary">See technical guides</a>
+        <a href="#pricing" class="cta-secondary">View pricing</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Section -->
+  <section class="problem-section">
+    <h2>RevOps teams need engineers.<br>Not consultants with Zapier certs.</h2>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <h3>$160K+ for technical talent</h3>
+        <p>
+          RevOps engineers who can actually write Python scripts and design data models command $140-180K base. Add benefits, onboarding, and tooling—you're past $200K before they touch your CRM.
+        </p>
+      </div>
+
+      <div class="problem-card">
+        <h3>Consultants can't code</h3>
+        <p>
+          Most RevOps consultants are former sales ops who learned Salesforce flows. When you need a custom CDC pipeline or n8n workflow with error handling, they're out of their depth.
+        </p>
+      </div>
+
+      <div class="problem-card">
+        <h3>Technical debt compounds</h3>
+        <p>
+          That 47-step Zap? The undocumented Salesforce trigger? The enrichment script someone wrote in 2019? It all breaks at scale, and no one knows how to fix it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution Section -->
+  <section class="solution-section">
+    <h2>RevOps engineering as a service</h2>
+    <p class="tagline">Real engineers. Production-grade systems.</p>
+
+    <div class="capabilities-grid">
+      <div class="capability">
+        <div class="capability-icon">⚙️</div>
+        <h3>Data Pipeline Engineering</h3>
+        <p>
+          CDC pipelines syncing Salesforce to Snowflake in near-real-time. Change tracking, deduplication, schema evolution. We write the SQL transformations and orchestrate the DAGs—not just configure a SaaS tool.
+        </p>
+      </div>
+
+      <div class="capability">
+        <div class="capability-icon">🔧</div>
+        <h3>Custom Workflow Development</h3>
+        <p>
+          n8n workflows with proper error handling, retry logic, and monitoring. Python scripts for complex data transformations. API integrations that don't break when vendors change their schemas.
+        </p>
+      </div>
+
+      <div class="capability">
+        <div class="capability-icon">📊</div>
+        <h3>Analytics Infrastructure</h3>
+        <p>
+          We build the reporting layer others assume exists. dbt models, reverse ETL, metric definitions in code. Version-controlled transforms. Lineage tracking. Observability built in.
+        </p>
+      </div>
+
+      <div class="capability">
+        <div class="capability-icon">🎯</div>
+        <h3>CRM Architecture & Schema Design</h3>
+        <p>
+          Custom objects, relationships, and field history tracking designed for scale. Lead scoring models in Apex. Territory assignment logic that accounts for edge cases. Proper normalization, not just "add a field."
+        </p>
+      </div>
+
+      <div class="capability">
+        <div class="capability-icon">🔄</div>
+        <h3>Integration Engineering</h3>
+        <p>
+          Bi-directional syncs between systems that keep data consistent. Webhook handlers with idempotency. API wrappers with rate limiting and exponential backoff. We handle the hard parts.
+        </p>
+      </div>
+
+      <div class="capability">
+        <div class="capability-icon">🛠️</div>
+        <h3>Technical Debt Remediation</h3>
+        <p>
+          We inherit broken systems and make them maintainable. Refactor undocumented workflows into version-controlled code. Add tests, monitoring, and runbooks. Leave your systems better than we found them.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Differentiation Section -->
+  <section class="diff-section">
+    <h2>Why technical RevOps teams choose us</h2>
+    <p class="subhead">
+      Not a traditional consultant. Not a Zapier-certified agency. Engineers who write code.
+    </p>
+
+    <div class="comparison-table">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>RevOps JET</th>
+            <th>Full-time hire</th>
+            <th>RevOps Consultant</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Technical depth</td>
+            <td class="check">Python, SQL, APIs</td>
+            <td class="check">If you hire well</td>
+            <td class="cross">Mostly point-and-click</td>
+          </tr>
+          <tr>
+            <td>Time to first delivery</td>
+            <td class="check">1 week</td>
+            <td class="cross">3-6 months</td>
+            <td class="cross">2-4 weeks (discovery)</td>
+          </tr>
+          <tr>
+            <td>Cost structure</td>
+            <td class="check">$7,995/month</td>
+            <td class="cross">$160K+ annually</td>
+            <td class="cross">$150-250/hr</td>
+          </tr>
+          <tr>
+            <td>Code in version control</td>
+            <td class="check">All work tracked</td>
+            <td class="check">If they document</td>
+            <td class="cross">Rare</td>
+          </tr>
+          <tr>
+            <td>Ongoing maintenance</td>
+            <td class="check">Included</td>
+            <td class="check">If they stay</td>
+            <td class="cross">New SOW required</td>
+          </tr>
+          <tr>
+            <td>Cancel anytime</td>
+            <td class="check">Yes</td>
+            <td class="cross">Severance costs</td>
+            <td class="cross">Contract locked</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="pricing-section" id="pricing">
+    <h2>One monthly fee. No surprises.</h2>
+    <p class="subhead">Production-grade RevOps engineering. Fixed cost.</p>
+
+    <div class="pricing-card">
+      <div class="price">$7,995</div>
+      <div class="price-period">/month</div>
+
+      <ul class="features-list">
+        <li>Dedicated RevOps engineering team</li>
+        <li>Unlimited requests & revisions</li>
+        <li>Weekly delivery of production code</li>
+        <li>All work in git with documentation</li>
+        <li>Async communication via Slack</li>
+        <li>Ongoing maintenance included</li>
+        <li>Cancel anytime</li>
+      </ul>
+
+      <a href="/blog" class="cta-primary" style="display: inline-block; margin-top: 1rem;">Get started</a>
+      <p style="font-size: 0.875rem; color: #86868b; margin-top: 1rem;">
+        Average customer saves 300+ engineering hours/year vs. building in-house.
+      </p>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="final-cta">
+    <h2>Stop patching.<br>Start engineering.</h2>
+    <div class="cta-group" style="margin-top: 2rem;">
+      <a href="/blog" class="cta-primary">See our technical work</a>
+    </div>
+  </section>
+</BaseLayout>
