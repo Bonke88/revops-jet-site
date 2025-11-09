@@ -15,10 +15,11 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { article, keyword, metadata } = req.body;
+    const { event_type, data } = req.body;
 
-    if (!article || !keyword) {
-      return res.status(400).json({ error: 'Missing required fields' });
+    // Validate payload structure
+    if (event_type !== 'publish_articles' || !data?.articles) {
+      return res.status(400).json({ error: 'Invalid payload structure' });
     }
 
     // Initialize GitHub API
@@ -30,59 +31,110 @@ export default async function handler(req, res) {
     const repo = 'revops-jet-site';
     const branch = 'main';
 
-    // Generate slug from keyword
-    const slug = keyword.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-    const fileName = `${slug}.md`;
-    const filePath = `src/content/guides/${fileName}`;
+    const results = [];
 
-    // Create frontmatter
-    const publishDate = new Date().toISOString().split('T')[0];
-    const frontmatter = `---
-title: "${metadata?.title || article.title}"
-description: "${metadata?.description || article.excerpt}"
-tool: "${metadata?.tool || 'zapier'}"
-useCase: "${metadata?.useCase || 'sales-automation'}"
-difficulty: "${metadata?.difficulty || 'intermediate'}"
-timeToImplement: ${metadata?.readTime || 15}
+    // Process each article
+    for (const article of data.articles) {
+      try {
+        const {
+          id,
+          title,
+          content_markdown,
+          meta_description,
+          slug: articleSlug,
+          tags,
+          created_at
+        } = article;
+
+        if (!content_markdown || !title) {
+          results.push({ id, status: 'skipped', reason: 'Missing content or title' });
+          continue;
+        }
+
+        // Use provided slug or generate from title
+        const slug = articleSlug || title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        const fileName = `${slug}.md`;
+        const filePath = `src/content/guides/${fileName}`;
+
+        // Extract metadata from tags or use defaults
+        const tool = tags?.find(t => ['salesforce', 'hubspot', 'zapier', 'make', 'n8n', 'clay'].includes(t.toLowerCase())) || 'zapier';
+        const useCase = tags?.find(t => ['lead-generation', 'sales-automation', 'data-enrichment'].includes(t.toLowerCase())) || 'sales-automation';
+        const difficulty = tags?.find(t => ['beginner', 'intermediate', 'advanced'].includes(t.toLowerCase())) || 'intermediate';
+
+        // Estimate read time (words / 200 words per minute)
+        const wordCount = content_markdown.split(/\s+/).length;
+        const timeToImplement = Math.max(5, Math.round(wordCount / 200));
+
+        // Format dates
+        const publishDate = created_at ? new Date(created_at).toISOString().split('T')[0] : new Date().toISOString().split('T')[0];
+
+        // Ensure description is max 160 chars
+        const description = meta_description?.slice(0, 160) || title.slice(0, 160);
+
+        // Create frontmatter
+        const frontmatter = `---
+title: "${title.replace(/"/g, '\\"')}"
+description: "${description.replace(/"/g, '\\"')}"
+tool: "${tool}"
+useCase: "${useCase}"
+difficulty: "${difficulty}"
+timeToImplement: ${timeToImplement}
 publishDate: ${publishDate}
 lastUpdated: ${publishDate}
 aiGenerated: true
 source: "outrank"
-targetKeyword: "${keyword}"
+outrankId: "${id}"
 ---
 
-${article.content}
+${content_markdown}
 `;
 
-    // Check if file already exists
-    let sha;
-    try {
-      const { data } = await octokit.repos.getContent({
-        owner,
-        repo,
-        path: filePath,
-        ref: branch
-      });
-      sha = data.sha;
-    } catch (error) {
-      // File doesn't exist, that's okay
+        // Check if file already exists
+        let sha;
+        try {
+          const { data: fileData } = await octokit.repos.getContent({
+            owner,
+            repo,
+            path: filePath,
+            ref: branch
+          });
+          sha = fileData.sha;
+        } catch (error) {
+          // File doesn't exist, that's okay
+        }
+
+        // Create or update the file
+        await octokit.repos.createOrUpdateFileContents({
+          owner,
+          repo,
+          path: filePath,
+          message: `Add AI-generated guide: ${title} [Outrank]`,
+          content: Buffer.from(frontmatter).toString('base64'),
+          branch,
+          ...(sha && { sha })
+        });
+
+        results.push({
+          id,
+          status: 'success',
+          slug,
+          url: `https://revopsjet.com/blog/${slug}`
+        });
+
+      } catch (articleError) {
+        console.error(`Error processing article ${article.id}:`, articleError);
+        results.push({
+          id: article.id,
+          status: 'error',
+          error: articleError.message
+        });
+      }
     }
 
-    // Create or update the file
-    await octokit.repos.createOrUpdateFileContents({
-      owner,
-      repo,
-      path: filePath,
-      message: `Add AI-generated guide: ${metadata?.title || article.title}`,
-      content: Buffer.from(frontmatter).toString('base64'),
-      branch,
-      ...(sha && { sha })
-    });
-
     return res.status(200).json({
-      success: true,
-      message: 'Article published successfully',
-      slug
+      message: 'Webhook processed successfully',
+      processed: results.length,
+      results
     });
 
   } catch (error) {
