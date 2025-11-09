@@ -2,9 +2,10 @@
 interface Props {
   title: string;
   description?: string;
+  schema?: any;
 }
 
-const { title, description = "RevOps JET - Technical revenue operations engineering delivered as a service" } = Astro.props;
+const { title, description = "RevOps JET - Technical revenue operations engineering delivered as a service", schema } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -22,6 +23,11 @@ const { title, description = "RevOps JET - Technical revenue operations engineer
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+
+    <!-- Structured Data -->
+    {schema && (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    )}
 
     <style is:global>
       * {

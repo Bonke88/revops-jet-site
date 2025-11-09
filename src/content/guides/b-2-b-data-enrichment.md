@@ -16,7 +16,7 @@ Think of your customer list as a blurry, black-and-white photo. You can make out
 
 ## What B2B Data Enrichment Really Means
 
-![A visual representation of B2B data enrichment turning scattered data points into a cohesive, organized system](https://cdn.outrank.so/f45919cb-f824-4ceb-a837-e4aa19dc066c/075d056d-5e70-48a1-99ab-c1a7a35627c1.jpg)
+![Visual representation of B2B data enrichment transforming scattered contact data points into a cohesive, organized customer intelligence system](https://cdn.outrank.so/f45919cb-f824-4ceb-a837-e4aa19dc066c/075d056d-5e70-48a1-99ab-c1a7a35627c1.jpg)
 
 At its heart, **B2B data enrichment** is about taking your existing—and often incomplete—customer data and fleshing it out with information from reliable third-party sources. It’s about moving beyond just a name and an email address to build a complete, multi-dimensional view of your ideal customers.
 
@@ -118,7 +118,7 @@ So, let's pop the hood and see how it all works.
 
 This infographic breaks down the four foundational pillars of B2B data—firmographics, demographics, technographics, and intent. These are the building blocks for any solid enrichment strategy.
 
-![Infographic about b2b data enrichment](https://cdn.outrank.so/f45919cb-f824-4ceb-a837-e4aa19dc066c/30b16d4b-2560-4e4d-8ee5-72b98535af77.jpg)
+![Infographic showing the four pillars of B2B data enrichment: firmographics, demographics, technographics, and intent data with definitions and examples](https://cdn.outrank.so/f45919cb-f824-4ceb-a837-e4aa19dc066c/30b16d4b-2560-4e4d-8ee5-72b98535af77.jpg)
 
 Think of each pillar as a different lens for viewing your customer. A well-built engine makes sure these lenses are always in focus by constantly updating and integrating the data.
 
@@ -249,7 +249,7 @@ When you can present this kind of clear, quantifiable proof, your case for data 
 
 ## Your Data Enrichment Implementation Roadmap
 
-![A visual roadmap showing the steps to implement a B2B data enrichment strategy, from audit to maintenance](https://cdn.outrank.so/f45919cb-f824-4ceb-a837-e4aa19dc066c/a972a08c-baf4-4220-b765-1db3aa40c84f.jpg)
+![Step-by-step visual roadmap for implementing a B2B data enrichment strategy: Phase 1 audit and goal definition, Phase 2 tool selection and integration, Phase 3 ongoing maintenance and monitoring](https://cdn.outrank.so/f45919cb-f824-4ceb-a837-e4aa19dc066c/a972a08c-baf4-4220-b765-1db3aa40c84f.jpg)
 
 Alright, this is where the rubber meets the road. A great **B2B data enrichment** program isn't just a happy accident; it’s the result of a clear, logical plan that takes you from initial idea to real-world execution. Let's walk through the roadmap to get your initiative off the ground and adding value fast.
 

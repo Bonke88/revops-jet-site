@@ -12,11 +12,41 @@ export async function getStaticPaths() {
 
 const { guide } = Astro.props;
 const { Content } = await guide.render();
+
+// Create schema for SEO
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": guide.data.title,
+  "description": guide.data.description,
+  "author": {
+    "@type": "Organization",
+    "name": "RevOps JET",
+    "url": "https://revopsjet.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "RevOps JET",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://revopsjet.com/favicon.svg"
+    }
+  },
+  "datePublished": guide.data.publishDate.toISOString(),
+  "dateModified": guide.data.lastUpdated.toISOString(),
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": `https://revopsjet.com/blog/${guide.slug}`
+  },
+  "proficiencyLevel": guide.data.difficulty,
+  "timeRequired": `PT${guide.data.timeToImplement}M`
+};
 ---
 
 <BaseLayout
   title={guide.data.title}
   description={guide.data.description}
+  schema={schema}
 >
   <style>
     .article-header {
