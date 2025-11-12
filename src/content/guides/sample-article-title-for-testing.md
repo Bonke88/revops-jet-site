@@ -5,8 +5,8 @@ tool: "zapier"
 useCase: "sales-automation"
 difficulty: "intermediate"
 timeToImplement: 5
-publishDate: 2025-11-11
-lastUpdated: 2025-11-11
+publishDate: 2025-11-12
+lastUpdated: 2025-11-12
 aiGenerated: true
 source: "outrank"
 outrankId: "test-article-123"
